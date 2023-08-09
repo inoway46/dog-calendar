@@ -25,9 +25,13 @@ export default function Home() {
     setDogImage(res.data.message);
   };
 
-  const getMessage = () => {
+  const randomPickMessage = () => {
     const index = Math.floor(Math.random() * messages.length);
-    setEncourageMessage(messages[index]);
+    return messages[index];
+  }
+
+  const getMessage = () => {
+    setEncourageMessage(randomPickMessage);
   };
 
   const goYesterday = () => {
