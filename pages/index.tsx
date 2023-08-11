@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Image from 'next/image';
 
 const messages = [
   '今日も一日がんばるワン！',
@@ -51,24 +52,29 @@ export default function Home() {
   }, [currentDate]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen space-y-10">
+    <div className="flex flex-col items-center justify-center h-screen space-y-5">
       <div className="flex items-center space-x-2">
         <h1 className="text-center text-4xl font-serif">{formatDate(currentDate)}</h1>
-        {/* 犬の手形アイコンをここに追加します */}
       </div>
-      <div>
-        <img src={dogImage} alt="Dog of the day" className="w-[375px] h-[375px] object-cover" />
-      </div>
-      <div className="p-4 rounded-xl bg-blue-200">
-        <p className="font-rounded">{encourageMessage}</p> {/* font-roundedは丸みを帯びたフォントを示します */}
-      </div>
-      <div className="flex items-center justify-between w-full px-4">
+      <div className="flex items-center justify-between px-4">
         <button onClick={goYesterday} className="px-4 py-2 border rounded-md">
-          きのう {/* 犬の手形アイコンをここに追加します */}
+          きのう
         </button>
         <button onClick={goTomorrow} className="px-4 py-2 border rounded-md">
-          あした {/* 犬の手形アイコンをここに追加します */}
+          あした
         </button>
+      </div>
+      <div>
+        <Image
+          src={dogImage}
+          alt="Random Dog Image"
+          className='w-[375px] h-[375px] object-cover'
+          width={375}
+          height={375}
+        />
+      </div>
+      <div className="p-4 rounded-xl bg-blue-200">
+        <p className="font-rounded">{encourageMessage}</p>
       </div>
     </div>
   );
