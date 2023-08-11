@@ -9,6 +9,11 @@ const messages = [
   'どんな困難も乗り越えるワン！'
 ];
 
+export const randomPickMessage = (): string => {
+  const index = Math.floor(Math.random() * messages.length);
+  return messages[index];
+};
+
 const formatDate = (date: Date) => {
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -16,39 +21,29 @@ const formatDate = (date: Date) => {
 };
 
 export default function Home() {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [dogImage, setDogImage] = useState('');
-  const [encourageMessage, setEncourageMessage] = useState('');
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [dogImage, setDogImage] = useState<string>('');
+  const [encourageMessage, setEncourageMessage] = useState<string>('');
 
-  const getDogImage = async () => {
+  const getDogImage = async (): Promise<void> => {
     const res = await axios.get('https://dog.ceo/api/breeds/image/random');
     setDogImage(res.data.message);
   };
 
-  const randomPickMessage = () => {
-    const index = Math.floor(Math.random() * messages.length);
-    return messages[index];
-  }
-
-  const getMessage = () => {
-    setEncourageMessage(randomPickMessage);
+  const getMessage = (): void => {
+    setEncourageMessage(randomPickMessage());
   };
 
-  const goYesterday = () => {
+  const changeDate = (offset: number): void => {
     setCurrentDate(prevDate => {
       const newDate = new Date(prevDate.getTime());
-      newDate.setDate(newDate.getDate() - 1);
+      newDate.setDate(newDate.getDate() + offset);
       return newDate;
-    })
+    });
   };
 
-  const goTomorrow = () => {
-    setCurrentDate(prevDate => {
-      const newDate = new Date(prevDate.getTime());
-      newDate.setDate(newDate.getDate() + 1);
-      return newDate;
-    })
-  };
+  const goYesterday = (): void => changeDate(-1);
+  const goTomorrow = (): void => changeDate(1);
 
   useEffect(() => {
     getDogImage();
