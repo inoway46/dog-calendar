@@ -4,19 +4,24 @@ import '@testing-library/jest-dom'
 import { fireEvent } from '@testing-library/react'
 
 describe('Home', () => {
+  let realDate = Date;
+
   beforeAll(() => {
-    const RealDate = Date;
-    global.Date = class extends RealDate {
+    global.Date = class extends realDate {
       constructor() {
         super();
-        return new RealDate('2023-01-01');
+        return new realDate('2023-01-01');
       }
     };
   });
 
   afterEach(() => {
     jest.restoreAllMocks()
-  })
+  });
+
+  afterAll(() => {
+    global.Date = realDate;
+  });
 
   test('応援メッセージが表示されること', () => {
     jest.spyOn(global.Math, 'random').mockReturnValue(0);
