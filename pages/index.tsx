@@ -15,20 +15,16 @@ export const randomPickMessage = (): string => {
   return messages[index];
 };
 
-const formatDate = (date: Date) => {
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${month}月${day}日`;
-};
+export const getCurrentDate = (): Date => new Date();
 
 export default function Home() {
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
-  const [dogImage, setDogImage] = useState<string>('');
+  const [currentDate, setCurrentDate] = useState<Date>(getCurrentDate());
+  const [imageNum, setImageNum] = useState<string>('');
   const [encourageMessage, setEncourageMessage] = useState<string>('');
 
-  const getDogImage = async (): Promise<void> => {
-    const res = await axios.get('https://dog.ceo/api/breeds/image/random');
-    setDogImage(res.data.message);
+  const getImageNum = () => {
+    const random = Math.floor(Math.random() * 150); // 0 to 149
+    setImageNum(random.toString());
   };
 
   const getMessage = (): void => {
@@ -43,11 +39,17 @@ export default function Home() {
     });
   };
 
+  const formatDate = (date: Date) => {
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${month}月${day}日`;
+  };
+
   const goYesterday = (): void => changeDate(-1);
   const goTomorrow = (): void => changeDate(1);
 
   useEffect(() => {
-    getDogImage();
+    getImageNum();
     getMessage();
   }, [currentDate]);
 
@@ -66,7 +68,7 @@ export default function Home() {
       </div>
       <div>
         <Image
-          src={dogImage}
+          src={`/images/golden_retriever/${imageNum}.jpg`}
           alt="Random Dog Image"
           className='w-[375px] h-[375px] object-cover'
           width={375}
