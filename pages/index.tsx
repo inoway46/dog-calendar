@@ -1,28 +1,23 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Image from 'next/image';
 
-const messages = [
-  '今日も一日がんばるワン！',
-  'いつでも君を応援しているワン！',
-  '君ならできるワン！',
-  '前向きに取り組むワン！',
-  'どんな困難も乗り越えるワン！'
-];
-
-export const randomPickMessage = (): string => {
-  const index = Math.floor(Math.random() * messages.length);
-  return messages[index];
-};
-
-export const getCurrentDate = (): Date => new Date();
-
 export default function Home() {
-  const [currentDate, setCurrentDate] = useState<Date>(getCurrentDate());
+  const messages = [
+    '今日も一日がんばるワン！',
+    'いつでも君を応援しているワン！',
+    '君ならできるワン！',
+    '前向きに取り組むワン！',
+    'どんな困難も乗り越えるワン！'
+  ];
+  const randomPickMessage = (): string => {
+    const index = Math.floor(Math.random() * messages.length);
+    return messages[index];
+  };
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [imageNum, setImageNum] = useState<string>('');
   const [encourageMessage, setEncourageMessage] = useState<string>('');
 
-  const getImageNum = () => {
+  const getImageNum = (): void => {
     const random = Math.floor(Math.random() * 150); // 0 to 149
     setImageNum(random.toString());
   };
