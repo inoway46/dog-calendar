@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export default function Home() {
-  const imageCount = 10;
   const messages = [
     '今日も一日がんばるワン！',
     'いつでも君を応援しているワン！',
@@ -14,10 +13,12 @@ export default function Home() {
     const index = Math.floor(Math.random() * messages.length);
     return messages[index];
   };
+
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [imageNum, setImageNum] = useState<string>('');
   const [encourageMessage, setEncourageMessage] = useState<string>('');
 
+  const imageCount = 10;
   const getImageNum = (): void => {
     const random = Math.floor(Math.random() * imageCount);
     setImageNum(random.toString());
