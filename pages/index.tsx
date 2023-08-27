@@ -13,12 +13,14 @@ export default function Home() {
     const index = Math.floor(Math.random() * messages.length);
     return messages[index];
   };
+
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [imageNum, setImageNum] = useState<string>('');
   const [encourageMessage, setEncourageMessage] = useState<string>('');
 
+  const imageCount = 10;
   const getImageNum = (): void => {
-    const random = Math.floor(Math.random() * 150); // 0 to 149
+    const random = Math.floor(Math.random() * imageCount);
     setImageNum(random.toString());
   };
 
@@ -72,6 +74,13 @@ export default function Home() {
       </div>
       <div className="p-4 rounded-xl bg-blue-200">
         <p className="font-rounded">{encourageMessage}</p>
+      </div>
+      <div className="flex items-center space-x-2 text-gray-500 text-sm">
+        当サイトでは
+        <a href="http://vision.stanford.edu/aditya86/ImageNetDogs/" className="text-gray-500 underline">
+          Stanford Dogs Dataset
+        </a>
+        の画像を使用しています。
       </div>
     </div>
   );
