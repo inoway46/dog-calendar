@@ -46,4 +46,9 @@ describe('Home', () => {
     render(<Home />);
     expect(screen.getByRole('img')).toBeInTheDocument();
   });
+
+  test('曜日が表示されること', () => {
+    render(<Home />);
+    expect(screen.getByText('1月1日(日)')).toBeInTheDocument();
+  });
 });
