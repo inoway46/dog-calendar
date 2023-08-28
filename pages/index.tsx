@@ -39,7 +39,7 @@ export default function Home() {
   const formatDate = (date: Date) => {
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    return `${month}月${day}日`;
+    return `${month}月${day}日(日)`;
   };
 
   const goYesterday = (): void => changeDate(-1);
