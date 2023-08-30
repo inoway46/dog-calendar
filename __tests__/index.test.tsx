@@ -33,17 +33,22 @@ describe('Home', () => {
   test('あしたボタンを押すと、翌日の日付が表示されること', () => {
     render(<Home />);
     fireEvent.click(screen.getByText('あした'));
-    expect(screen.getByText('1月2日')).toBeInTheDocument();
+    expect(screen.getByText('1月2日(月)')).toBeInTheDocument();
   });
 
   test('きのうボタンを押すと、前日の日付が表示されること', () => {
     render(<Home />);
     fireEvent.click(screen.getByText('きのう'));
-    expect(screen.getByText('12月31日')).toBeInTheDocument();
+    expect(screen.getByText('12月31日(土)')).toBeInTheDocument();
   });
 
   test('画像が表示されること', () => {
     render(<Home />);
     expect(screen.getByRole('img')).toBeInTheDocument();
+  });
+
+  test('曜日が表示されること', () => {
+    render(<Home />);
+    expect(screen.getByText('1月1日(日)')).toBeInTheDocument();
   });
 });

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
+const DAYS_OF_WEEK = ['日', '月', '火', '水', '木', '金', '土'];
+
 export default function Home() {
   const messages = [
     '今日も一日がんばるワン！',
@@ -39,7 +41,8 @@ export default function Home() {
   const formatDate = (date: Date) => {
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    return `${month}月${day}日`;
+    const dayOfWeek = DAYS_OF_WEEK[date.getDay()];
+    return `${month}月${day}日(${dayOfWeek})`;
   };
 
   const goYesterday = (): void => changeDate(-1);
