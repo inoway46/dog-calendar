@@ -1,0 +1,20 @@
+name: Greptile PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Greptile Review
+        uses: greptile-apps/greptile-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          greptile-api-key: ${{ secrets.GREPTILE_API_KEY }}
